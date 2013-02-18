@@ -1,0 +1,28 @@
+:VERSION 1
+
+BEGIN;
+
+CREATE TABLE IF NOT EXISTS `assetcache` (
+  `AssetID` varchar(36) NOT NULL DEFAULT '00000000-0000-0000-0000-000000000000',
+  `create_time` int(11) default 0,
+  `access_time` int(11) default 0,
+  `data` longblob NOT NULL,
+  PRIMARY KEY (`AssetID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+COMMIT;
+
+:VERSION 2
+
+BEGIN;
+
+CREATE TABLE IF NOT EXISTS `tmpcache` (
+  `AssetID` varchar(36) NOT NULL DEFAULT '00000000-0000-0000-0000-000000000000',
+  `create_time` int(11) default 0,
+  `access_time` int(11) default 0,
+  `data` longblob NOT NULL,
+  PRIMARY KEY (`AssetID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+COMMIT;
+

@@ -1,0 +1,4 @@
+[Modules]
+        
+    AssetCaching = "AssetProxy"
+    Include-AssetProxy = "config-include/AssetProxy.ini"    

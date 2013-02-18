@@ -1,0 +1,10 @@
+[AssetCache]
+    ;;
+    ;; Options for AssetProxy
+    ;;
+    ConnectionString = "Data Source=localhost;Database=AssetProxy;User ID=opensim;Password=;"
+    ; Log level
+    ; 0 - (Error) Errors only
+    ; 1 - (Debug) Cache Activity (Reads/Writes)
+    ;
+    LogLevel = 0
