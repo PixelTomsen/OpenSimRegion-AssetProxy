@@ -1,29 +1,36 @@
-;Developer: Pixel Tomsen
+;Developer: Pixel Tomsen / Christian K.
 ;
-*
+;Source-Tree: https://github.com/PixelTomsen/OpenSimRegion-AssetProxy/tree/master/addon-modules/AssetProxy
+
 Function:
 
 - Region AssetProxy-Module as VERY experimental replacement for Floatsam-Cache-Module as cache-module / Gridmode
-- shares Assets for different opensim-instances via database (current mysql)
-- forms a bridge to far distant asset-server (sample: EU<->US - Asset*
+- shares Assets for different opensim-instances with external database (current mysql)
+- forms a bridge to far distant asset-server (Example: EU<->US - Assetserver-requests)
+- lower IO-Requests on region-server and saves memory on it
+- shares tetures from neighbor-regions
 
 Required: 
-- mysql on a separate server (not on a region-server) with great network-connection
-*
+- mysql on a separate server (not on a region-server) with nice network-connection
+
 Useless for:
+
 - for Standalone region-server (e.g. at home)
 - sqlite
 - gridless region-server
-* 
-*
+
+
 ToDo :
-- copy from bin/OpenSim.Region.AssetProxy.dll to your opensim-bin-directory OR for compile: 
- 
+
+- copy from bin/OpenSim.Region.AssetProxy.dll to your opensim-bin-directory 
+
+:Compile:
+
 - copy this Folder to source-folder-of-opensim/addon-modules
 - run runprebuild.bat (msvc) or runprebuild.sh (mono-linux)
 - run compile (msvc) or xbuild (linux-mono)
 
-after: 
+After: 
 
 - rename and setup db-connection in AssetProxy.ini.example in bin/config-include of this tree and rename this to 'AssetProxy.ini'
 - add to GridCommon.ini - at Section [Modules] : 
