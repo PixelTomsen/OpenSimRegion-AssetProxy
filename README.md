@@ -1,18 +1,14 @@
-;Developer: Pixel Tomsen (Christian Kurzhals / www.ckinfo.de) (Mail: pixel.tomsen [at] gridnet.info)
+;Developer: Pixel Tomsen
 ;
 *
 Function:
 
-- Region AssetProxy-Module as VERY! experimental replacement for Floatsam-Cache-Module as cache-module / Gridmode !
+- Region AssetProxy-Module as VERY experimental replacement for Floatsam-Cache-Module as cache-module / Gridmode
 - shares Assets for different opensim-instances via database (current mysql)
-- saves simulator memory (half size!) and step down IO-Requests for server-drives
-- forms a bridge to far distant asset-server (sample: EU<->US - AssetServer-requests)
-- some improvement for region-crossing /attached huds or objects, if region connects to same mysql-cache-db with proxy
-- temp textures (outfits, sculpts) shared for any opensim-instances, you can see all in the neighbor-sim
-- lower drivespace for region-server is needed; we have a pool;-)  
-*
+- forms a bridge to far distant asset-server (sample: EU<->US - Asset*
+
 Required: 
-- mysql on a separate server (not on a region-server!) with great network-connection
+- mysql on a separate server (not on a region-server) with great network-connection
 *
 Useless for:
 - for Standalone region-server (e.g. at home)
