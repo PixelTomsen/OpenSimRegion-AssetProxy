@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die mit einer Assembly verknüpft sind.
 [assembly: AssemblyTitle("OpenSim.Region.AssetProxy")]
-[assembly: AssemblyDescription("AssetProxy for Region-Server")]
+[assembly: AssemblyDescription("AssetProxy RegionModule")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("OpenSimulator")]
-[assembly: AssemblyCopyright("Copyright ©  PiTo 2013")]
+[assembly: AssemblyCompany("Ch.Kurzhals")]
+[assembly: AssemblyProduct("OpenSimulator.org")]
+[assembly: AssemblyCopyright("Copyright ©  PiTo 2013, OpenSimulator")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

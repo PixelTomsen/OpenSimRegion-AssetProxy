@@ -163,6 +163,8 @@ namespace OpenSim.Region.AssetProxy
                             m_stats.Errors++;
                         }
                     }
+
+                    dbcon.Close();
                 }
             }
 
@@ -218,6 +220,8 @@ namespace OpenSim.Region.AssetProxy
                             m_stats.Errors++;
                         }
                     }
+
+                    dbcon.Close();
                 }
             }
         }
@@ -242,6 +246,8 @@ namespace OpenSim.Region.AssetProxy
                             else
                                 m_stats.Deletes++;
                         }
+
+                        dbcon.Close();
                     }
                 }
                 catch (Exception e)
@@ -285,6 +291,8 @@ namespace OpenSim.Region.AssetProxy
                             m_stats.Errors++;
                         }
                     }
+
+                    dbcon.Close();
                 }
             }
 
@@ -315,6 +323,8 @@ namespace OpenSim.Region.AssetProxy
                             m_stats.Errors++;
                         }
                     }
+
+                    dbcon.Close();
                 }
             }
 

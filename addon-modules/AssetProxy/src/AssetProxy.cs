@@ -368,13 +368,13 @@ namespace OpenSim.Region.AssetProxy
         {
             AssetProxyDataStats s = m_dataStore.Statistics;
 
-            m_log.InfoFormat("[{0}]: Statistics since {2} with {1} Errors.",
+            m_log.InfoFormat("[{0}]:Statistics since {2} with {1} Errors.",
                 Name, s.Errors, Utils.UnixTimeToDateTime(s.TimeStamp));
 
-            m_log.InfoFormat("[{0}]:=> Asset hits: {1}, saves: {2}, deletes: {3}, items: {4}",
+            m_log.InfoFormat("[{0}]:=> Asset hits: {1}, saved: {2}, deleted: {3}, count: {4}",
                  Name, s.Gets, s.Stores, s.Deletes, s.Assets);
 
-            m_log.InfoFormat("[{0}]:=> Temp asset hits: {1}, saves: {2}, deletes: {3}, items: {4}",
+            m_log.InfoFormat("[{0}]:=> Temp asset hits: {1}, saved: {2}, deleted: {3}, count: {4}",
                 Name, s.GetsTmp, s.StoresTmp, s.DeletesTmp, s.AssetsTemp);
         }
 
