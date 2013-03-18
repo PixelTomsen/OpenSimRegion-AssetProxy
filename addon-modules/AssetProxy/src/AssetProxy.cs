@@ -226,8 +226,8 @@ namespace OpenSim.Region.AssetProxy
             if (asset == null)
             {
                 asset = m_dataStore.GetAsset(Id, false);
-                
-                if(asset == null)
+
+                if (asset == null)
                     asset = m_dataStore.GetAsset(Id, true);
             }
 

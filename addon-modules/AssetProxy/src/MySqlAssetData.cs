@@ -1,5 +1,5 @@
 ﻿/*
- * Pixel Tomsen 2012 (pixel.tomsen [at] gridnet.info)
+ * Pixel Tomsen 2013 (pixel.tomsen [at] gridnet.info)
  *
  * Copyright (c) Contributors, http://opensimulator.org/
  * See CONTRIBUTORS.TXT for a full list of copyright holders.
@@ -52,6 +52,8 @@ namespace OpenSim.Region.AssetProxy
         private string m_connectionString = String.Empty;
         private object m_dbLock = new object();
 
+        private int UpdateAccessTime = 20;  // update Asset accesstime after xx days
+
         private int m_logLevel = 0;
 
         AssetProxyDataStats m_stats = new AssetProxyDataStats();
@@ -95,6 +97,7 @@ namespace OpenSim.Region.AssetProxy
         public AssetBase GetAsset(string Id, bool IsTemporary)
         {
             AssetBase asset = null;
+            int accessTime = 0;
 
             lock (m_dbLock)
             {
@@ -102,7 +105,7 @@ namespace OpenSim.Region.AssetProxy
                 {
                     dbcon.Open();
 
-                    using (MySqlCommand cmd = new MySqlCommand("SELECT data FROM " + Table(IsTemporary) + " WHERE AssetID=?assetid", dbcon))
+                    using (MySqlCommand cmd = new MySqlCommand("SELECT data, access_time FROM " + Table(IsTemporary) + " WHERE AssetID=?assetid", dbcon))
                     {
                         cmd.Parameters.AddWithValue("?assetid", Id);
 
@@ -112,6 +115,8 @@ namespace OpenSim.Region.AssetProxy
                             {
                                 if (dbReader.Read())
                                 {
+                                    accessTime = (int)dbReader["access_time"];
+
                                     BinaryFormatter bformatter = new BinaryFormatter();
                                     using (MemoryStream ms = new MemoryStream((byte[])dbReader["data"]))
                                     {
@@ -143,24 +148,27 @@ namespace OpenSim.Region.AssetProxy
                         }
                     }
 
-                    using (MySqlCommand cmd
-                        = new MySqlCommand("update " + Table(IsTemporary) + " set access_time=?access_time where AssetID=?id", dbcon))
+                    if ((DateTime.UtcNow - Utils.UnixTimeToDateTime(accessTime)).TotalDays > UpdateAccessTime)
                     {
-                        try
+                        using (MySqlCommand cmd
+                            = new MySqlCommand("update " + Table(IsTemporary) + " set access_time=?access_time where AssetID=?id", dbcon))
                         {
-                            using (cmd)
+                            try
                             {
-                                cmd.Parameters.AddWithValue("?id", Id);
-                                cmd.Parameters.AddWithValue("?access_time", Utils.DateTimeToUnixTime(DateTime.UtcNow));
-                                cmd.ExecuteNonQuery();
+                                using (cmd)
+                                {
+                                    cmd.Parameters.AddWithValue("?id", Id);
+                                    cmd.Parameters.AddWithValue("?access_time", Utils.DateTimeToUnixTime(DateTime.UtcNow));
+                                    cmd.ExecuteNonQuery();
+                                }
                             }
-                        }
-                        catch (Exception e)
-                        {
-                            m_log.ErrorFormat("[{0}]: MySql failure updating access_time for asset {1}{2}",
-                                "AssetProxy", Id, Environment.NewLine + e.ToString());
+                            catch (Exception e)
+                            {
+                                m_log.ErrorFormat("[{0}]: MySql failure updating access_time for asset {1}{2}",
+                                    "AssetProxy", Id, Environment.NewLine + e.ToString());
 
-                            m_stats.Errors++;
+                                m_stats.Errors++;
+                            }
                         }
                     }
 
